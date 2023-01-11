@@ -1,24 +1,23 @@
-var  config = require('./dbconfig');
 const  sql = require('mssql');
+
+//Sql Database Configuration
+const  config = {
+  user:  'website_login', // sql user
+  password:  '5TYt8#kA3s*jvtMEa0DC3PP^', //sql user password
+  server:  '127.0.0.1', // if it does not work try- localhost
+  database:  'Production',
+  options: {
+    trustedconnection:  true,
+    enableArithAbort:  true,
+  },
+  port:  1433
+}
 
 async  function  getOrders() {
   try {
     let  pool = await  sql.connect(config);
     let  products = await  pool.request().query("SELECT * from Orders");
     return  products.recordsets;
-  }
-  catch (error) {
-    console.log(error);
-  }
-}
-
-async  function  getOrder(productId) {
-  try {
-    let  pool = await  sql.connect(config);
-    let  product = await  pool.request()
-    .input('input_parameter', sql.Int, productId)
-    .query("SELECT * from Orders where Id = @input_parameter");
-    return  product.recordsets;
   }
   catch (error) {
     console.log(error);
@@ -45,6 +44,5 @@ async  function  addOrder(order) {
 
 module.exports = {
   getOrders:  getOrders,
-  getOrder:  getOrder,
   addOrder:  addOrder
 }

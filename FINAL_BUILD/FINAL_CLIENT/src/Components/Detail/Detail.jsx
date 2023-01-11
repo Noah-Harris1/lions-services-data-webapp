@@ -1,10 +1,12 @@
+import React from 'react'
+import QRCode from 'react-qr-code'
+
+import "./Detail.scss"
+
 import { Button } from '../Common/Button/Button'
 import { Link } from 'react-router-dom'
-import React from 'react'
-import "./Detail.scss"
-import { getSQL, postSQL } from '../../Util/API'
+import { getSQL, postSQL } from '../../api_client'
 import { useEffect, useState } from 'react'
-import QRCode from 'react-qr-code'
 import { Order } from './Order.ts'
 
 export const Detail = () => {
@@ -47,7 +49,6 @@ export const Detail = () => {
 			<input type="text" placeholder='City' id="message5" onChange={(e) => setMessage5(e.target.value)} value={message5}/>
 			<br/>
 			<p>{JSON.stringify(database)}</p>
-	
 		</div>
 	)
 }

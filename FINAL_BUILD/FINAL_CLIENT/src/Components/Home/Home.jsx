@@ -1,9 +1,11 @@
+import React from 'react'
+
+import './Home.scss'
+
 import { Button } from '../Common/Button/Button'
 import { Link } from 'react-router-dom'
-import React from 'react'
-import './Home.scss'
 import { QrReader } from 'react-qr-reader'
-import { getSQL, postSQL } from '../../Util/API'
+import { getSQL, postSQL } from '../../api_client'
 import { useState, useEffect } from 'react';
 
 export const Home = () => {

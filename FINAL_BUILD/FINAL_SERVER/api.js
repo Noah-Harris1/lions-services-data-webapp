@@ -9,14 +9,16 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //GET Requests
-app.get('/message', (req, res) => {
+app.get('/Test', (req, res) => {
   Db.getOrders().then((data) => {
+    console.log('GET Request Received')
     res.send(data[0]);
   })
 });
 
 //POST Requests
-app.post('/message', function(req, res) {
+app.post('/Test', function(req, res) {
+  console.log('POST Request Received')
   let order = {...req.body}
   Db.addOrder(order.order)
   res.end();
