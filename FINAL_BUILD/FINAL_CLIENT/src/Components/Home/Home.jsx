@@ -14,7 +14,7 @@ export const Home = () => {
 	var audio = new Audio('../src/Assets/beep.mp3');
 
 	const sendToServer = (data) => {
-		postSQL(data).then((r) => {
+		postSQL(data, 'Test').then((r) => {
 			console.log(r)
 		}).catch((e) => {
 			console.log(e)});

@@ -1,10 +1,12 @@
 const  sql = require('mssql');
 
+const tableName = 'Orders'
+
 //Sql Database Configuration
 const  config = {
   user:  'website_login', // sql user
   password:  '5TYt8#kA3s*jvtMEa0DC3PP^', //sql user password
-  server:  '127.0.0.1', // if it does not work try- localhost
+  server:  'lions-services-data-webapp.database.windows.net', // if it does not work try- localhost
   database:  'Production',
   options: {
     trustedconnection:  true,
@@ -13,10 +15,13 @@ const  config = {
   port:  1433
 }
 
+
+
+//GET Functions for SQL Database
 async  function  getOrders() {
   try {
     let  pool = await  sql.connect(config);
-    let  products = await  pool.request().query("SELECT * from Orders");
+    let  products = await  pool.request().query("SELECT * from "+tableName);
     return  products.recordsets;
   }
   catch (error) {
@@ -24,17 +29,19 @@ async  function  getOrders() {
   }
 }
 
+//POST Functions for SQL Database
 async  function  addOrder(order) {
   try {
     let  pool = await  sql.connect(config);
+
     let  insertProduct = await  pool.request()
-    .input('Id', sql.Int, order.id)
-    .input('Title', sql.NVarChar, order.title)
-    .input('Quantity', sql.Int, order.quantity)
-    .input('Message', sql.NVarChar, order.message)
-    .input('City', sql.NVarChar, order.city)
+      .input('Id', sql.Int, order.id)
+      .input('Title', sql.NVarChar, order.title)
+      .input('Quantity', sql.Int, order.quantity)
+      .input('Message', sql.NVarChar, order.message)
+      .input('City', sql.NVarChar, order.city)
     
-    .query("INSERT INTO Orders VALUES (@Id, @Title, @Quantity, @Message, @City);")
+    .query("INSERT INTO "+tableName+" VALUES (@Id, @Title, @Quantity, @Message, @City);")
     return  insertProduct.recordsets;
   }
   catch (err) {

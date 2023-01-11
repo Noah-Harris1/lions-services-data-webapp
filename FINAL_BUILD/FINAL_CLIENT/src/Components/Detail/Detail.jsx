@@ -22,7 +22,7 @@ export const Detail = () => {
 	const qrValue = new Order(message1, message2, message3, message4, message5)
 
 	useEffect(()=>{
-		getSQL().then((e) => {
+		getSQL('Test').then((e) => {
 			console.log(e.data)
 			setDatabase(e.data)
 		})
