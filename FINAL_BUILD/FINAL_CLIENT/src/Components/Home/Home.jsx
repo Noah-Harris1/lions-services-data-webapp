@@ -5,7 +5,7 @@ import './Home.scss'
 import { Button } from '../Common/Button/Button'
 import { Link } from 'react-router-dom'
 import { QrReader } from 'react-qr-reader'
-import { getSQL, postSQL } from '../../api_client'
+import { getSQL, postSQL } from '../../Utilities/api_client'
 import { useState, useEffect } from 'react';
 
 export const Home = () => {

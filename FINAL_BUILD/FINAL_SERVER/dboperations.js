@@ -1,12 +1,13 @@
 const  sql = require('mssql');
 
-const tableName = 'Orders'
+const serverName = 'lions-services-data-webapp.database.windows.net'
+// const serverName = <TO BE DETERMINED THIS IS THE NAME OF THE LIONS SERVER>
 
 //Sql Database Configuration
 const  config = {
   user:  'website_login', // sql user
   password:  '5TYt8#kA3s*jvtMEa0DC3PP^', //sql user password
-  server:  'lions-services-data-webapp.database.windows.net', // if it does not work try- localhost
+  server:  serverName,
   database:  'Production',
   options: {
     trustedconnection:  true,
@@ -15,13 +16,11 @@ const  config = {
   port:  1433
 }
 
-
-
 //GET Functions for SQL Database
-async  function  getOrders() {
+async  function  getTable(tableName) {
   try {
     let  pool = await  sql.connect(config);
-    let  products = await  pool.request().query("SELECT * from "+tableName);
+    let  products = await  pool.request().query('SELECT * from '+tableName);
     return  products.recordsets;
   }
   catch (error) {
@@ -41,7 +40,7 @@ async  function  addOrder(order) {
       .input('Message', sql.NVarChar, order.message)
       .input('City', sql.NVarChar, order.city)
     
-    .query("INSERT INTO "+tableName+" VALUES (@Id, @Title, @Quantity, @Message, @City);")
+    .query('INSERT INTO '+tableName+' VALUES (@Id, @Title, @Quantity, @Message, @City);')
     return  insertProduct.recordsets;
   }
   catch (err) {
@@ -50,6 +49,6 @@ async  function  addOrder(order) {
 }
 
 module.exports = {
-  getOrders:  getOrders,
+  getTable:  getTable,
   addOrder:  addOrder
 }

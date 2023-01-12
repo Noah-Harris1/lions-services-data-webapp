@@ -10,7 +10,7 @@ app.use(cors());
 
 //GET Requests
 app.get('/Test', (req, res) => {
-  Db.getOrders().then((data) => {
+  Db.getTable('Orders').then((data) => {
     console.log('GET Request Received')
     res.send(data[0]);
   })
@@ -19,8 +19,8 @@ app.get('/Test', (req, res) => {
 //POST Requests
 app.post('/Test', function(req, res) {
   console.log('POST Request Received')
-  let order = {...req.body}
-  Db.addOrder(order.order)
+  let data = {...req.body}
+  Db.addOrder(data.order)
   res.end();
 });
 

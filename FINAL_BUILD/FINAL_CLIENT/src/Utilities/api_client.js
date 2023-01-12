@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 const base = 'http://localhost:3001';
 
 //GET Request
@@ -10,8 +9,8 @@ export const getSQL = async (route) => {
 }
 
 //POST Request
-export const postSQL = async (order, route) => {
-	const resp = await axios.post(`${base}/${route}`, {order});
+export const postSQL = async (data, route) => {
+	const resp = await axios.post(`${base}/${route}`, {data});
 	return resp;
 }
 
