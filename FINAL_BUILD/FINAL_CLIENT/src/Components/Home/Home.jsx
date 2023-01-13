@@ -10,15 +10,16 @@ import { useState, useEffect } from 'react';
 
 export const Home = () => {
 
-	var [data, setData] = useState('No result');
+	var [data, setData] = useState('test');
 	var audio = new Audio('../src/Assets/beep.mp3');
 
 	const sendToServer = (data) => {
 		postSQL(data, 'Test').then((r) => {
 			console.log(r)
 		}).catch((e) => {
-			console.log(e)});
-			console.log('postError')
+			console.log(e)
+			console.log('postError')});
+			
 	}
 
 	return (
@@ -32,6 +33,7 @@ export const Home = () => {
                 if (!!result) {
                     setData(result?.text);
 					audio.play();
+					console.log(result)
 					if (result != undefined) {
 						sendToServer(JSON.parse(result?.text));
 					}
@@ -41,7 +43,6 @@ export const Home = () => {
             constraints = {{ facingMode: 'environment'}}
             /> 
 			<h1>{data}</h1>
-		
 		</div>
 	)
 }

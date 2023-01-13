@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import { getSQL, postSQL } from '../../Utilities/api_client'
 import { useEffect, useState } from 'react'
 import { Order } from '../../Utilities/order'
+import NewTable from '../Common/Table/NewTable'
 
 
 export const Detail = () => {
@@ -18,14 +19,18 @@ export const Detail = () => {
 	const [message4, setMessage4] = useState('Hello world')
 	const [message5, setMessage5] = useState('Toronto')
 	
-	const [database, setDatabase] = useState('null')
 	const qrValue = new Order(message1, message2, message3, message4, message5)
 
-	useEffect(()=>{
-		getSQL('Test').then((e) => {
-			setDatabase(e.data)
-		})
-	},[])
+    const [database, setDatabase] = useState([{"id":"1","title":"Default","quantity":"5","message":"Hello world","city":"Toronto"}]);
+
+    useEffect(()=>{
+        getSQL('Test').then((e) => {
+            setDatabase(e.data)
+        })
+        .catch((err) => {
+            console.log(err.message)
+        })
+        },[])
 
 	return (
 		<div className='detailCont'>
@@ -45,7 +50,7 @@ export const Detail = () => {
 			<input type='text' placeholder='Message' id='message4' onChange={(e) => setMessage4(e.target.value)} value={message4}/>
 			<input type='text' placeholder='City' id='message5' onChange={(e) => setMessage5(e.target.value)} value={message5}/>
 			<br/>
-			<p>{JSON.stringify(database)}</p>
+			<NewTable/>
 		</div>
 	)
 }

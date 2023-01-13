@@ -10,18 +10,22 @@ app.use(cors());
 
 //GET Requests
 app.get('/Test', (req, res) => {
+  console.log('GET Request Received')
   Db.getTable('Orders').then((data) => {
-    console.log('GET Request Received')
     res.send(data[0]);
   })
+  console.log('GET Response Sent')
 });
 
 //POST Requests
 app.post('/Test', function(req, res) {
   console.log('POST Request Received')
   let data = {...req.body}
-  Db.addOrder(data.order)
+  console.log(data)
+  Db.addOrder(data)
+  console.log(data)
   res.end();
+  console.log('POST Response Sent')
 });
 
 //Listen

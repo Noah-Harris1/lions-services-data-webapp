@@ -3,6 +3,8 @@ const  sql = require('mssql');
 const serverName = 'lions-services-data-webapp.database.windows.net'
 // const serverName = <TO BE DETERMINED THIS IS THE NAME OF THE LIONS SERVER>
 
+tableName = 'Orders'
+
 //Sql Database Configuration
 const  config = {
   user:  'website_login', // sql user
@@ -32,19 +34,17 @@ async  function  getTable(tableName) {
 async  function  addOrder(order) {
   try {
     let  pool = await  sql.connect(config);
-
     let  insertProduct = await  pool.request()
-      .input('Id', sql.Int, order.id)
-      .input('Title', sql.NVarChar, order.title)
-      .input('Quantity', sql.Int, order.quantity)
-      .input('Message', sql.NVarChar, order.message)
-      .input('City', sql.NVarChar, order.city)
-    
+      .input('Id', sql.Int, order.data.id)
+      .input('Title', sql.NVarChar, order.data.title)
+      .input('Quantity', sql.Int, order.data.quantity)
+      .input('Message', sql.NVarChar, order.data.message)
+      .input('City', sql.NVarChar, order.data.city)
     .query('INSERT INTO '+tableName+' VALUES (@Id, @Title, @Quantity, @Message, @City);')
     return  insertProduct.recordsets;
   }
-  catch (err) {
-    console.log(err);
+  catch (error) {
+    console.log(error);
   }
 }
 
