@@ -35,11 +35,11 @@ async  function  addOrder(order) {
   try {
     let  pool = await  sql.connect(config);
     let  insertProduct = await  pool.request()
-      .input('Id', sql.Int, order.data.id)
-      .input('Title', sql.NVarChar, order.data.title)
-      .input('Quantity', sql.Int, order.data.quantity)
-      .input('Message', sql.NVarChar, order.data.message)
-      .input('City', sql.NVarChar, order.data.city)
+      .input('Id', sql.Int, order.id)
+      .input('Title', sql.NVarChar, order.title)
+      .input('Quantity', sql.Int, order.quantity)
+      .input('Message', sql.NVarChar, order.message)
+      .input('City', sql.NVarChar, order.city)
     .query('INSERT INTO '+tableName+' VALUES (@Id, @Title, @Quantity, @Message, @City);')
     return  insertProduct.recordsets;
   }

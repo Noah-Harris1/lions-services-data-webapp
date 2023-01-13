@@ -21,9 +21,7 @@ app.get('/Test', (req, res) => {
 app.post('/Test', function(req, res) {
   console.log('POST Request Received')
   let data = {...req.body}
-  console.log(data)
   Db.addOrder(data)
-  console.log(data)
   res.end();
   console.log('POST Response Sent')
 });
